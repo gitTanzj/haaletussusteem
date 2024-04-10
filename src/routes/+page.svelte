@@ -45,12 +45,15 @@
             }
         }
 
+        firstname = '';
+        lastname = '';
+
         setTimeout(() => {
             notification = {
                 message: 'None',
                 type: 'none'
             }
-        }, 10000);
+        }, 5000);
     }
 
 </script>

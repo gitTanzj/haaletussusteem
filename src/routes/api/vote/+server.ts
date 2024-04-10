@@ -13,7 +13,7 @@ export async function POST(event) {
 
     const pool = await createConnection()
     console.log("try choice query")
-    await pool.query('INSERT INTO HAALETUS(eesnimi, perenimi, otsus) VALUES(?, ?, ?)', [firstname, lastname, choice])
+    await pool.query('CALL HAALETUS_VALIDATE(?, ?, ?)', [firstname, lastname, choice])
     console.log("end choice query")
     await pool.end()
 
