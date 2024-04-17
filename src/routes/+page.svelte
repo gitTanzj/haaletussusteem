@@ -3,6 +3,18 @@
     import { onMount } from 'svelte';
     // import { choiceQuery } from '$lib/database'
 
+    $: stats = { for: 0, against: 0}
+
+    onMount(() => {
+        const getStats = async () => {
+            const response = await fetch('/api/vote');
+            const result = await response.json();
+            stats = result.data.stats;
+            console.log(stats);
+        }
+        getStats();
+    });
+
     interface Notification {
         message: string
         type: 'success' | 'error' | 'none'
@@ -13,7 +25,6 @@
         type: 'none'
     }
     $: notification_class = notification && notification.type == 'success' ? 'bg-green-600' : notification.type == 'error' ? 'bg-red-600' : ''
-     
 
     let firstname: string = '';
     let lastname: string = '';
@@ -55,7 +66,6 @@
             }
         }, 5000);
     }
-
 </script>
 
 <div class="flex justify-center items-center min-h-screen bg-zinc-900 text-zinc-200">
@@ -96,5 +106,19 @@
                 <input class="px-4 py-1 rounded text-white bg-orange-600 hover:bg-orange-500 focus:bg-orange-600 font-bold uppercase" type="submit" value="Hääletan">
             </div>
         </form>
+        <!-- TULEMUSED -->
+        <div>
+            <h2 class="text-4xl mt-8 mb-4 text-zinc-50 font-extralight">Tulemused</h2>
+            <div class="flex flex-col gap-4">
+                <div class="flex justify-between">
+                    <p>Poolt</p>
+                    <p>{stats.for}</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Vastu</p>
+                    <p>{stats.against}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
