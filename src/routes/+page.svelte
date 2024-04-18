@@ -56,7 +56,7 @@
     }
 
     export let data
-    console.log(data)
+    console.log(data.stats)
 </script>
 
 
@@ -104,11 +104,11 @@
             <div class="flex flex-col gap-4">
                 <div class="flex justify-between">
                     <p>Poolt</p>
-                    <p></p>
+                    <p>{data.stats.for}</p>
                 </div>
                 <div class="flex justify-between">
                     <p>Vastu</p>
-                    <p></p>
+                    <p>{data.stats.against}</p>
                 </div>
             </div>
         </div>
