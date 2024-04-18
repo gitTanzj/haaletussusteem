@@ -38,5 +38,10 @@ export async function GET() {
     console.log("end query")
     await pool.end()
 
-    return json({'stats': stats})
+    return new Response(JSON.stringify(stats), {
+        headers: {
+            'Content-Type': 'application/json'
+        }, 
+        status: 200
+    })
 }

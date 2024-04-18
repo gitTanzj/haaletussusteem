@@ -3,18 +3,6 @@
     import { onMount } from 'svelte';
     // import { choiceQuery } from '$lib/database'
 
-    $: stats = { for: 0, against: 0}
-
-    onMount(() => {
-        const getStats = async () => {
-            const response = await fetch('/api/vote');
-            const result = await response.json();
-            stats = result.data.stats;
-            console.log(stats);
-        }
-        getStats();
-    });
-
     interface Notification {
         message: string
         type: 'success' | 'error' | 'none'
@@ -66,7 +54,11 @@
             }
         }, 5000);
     }
+
+    export let data
+    console.log(data)
 </script>
+
 
 <div class="flex justify-center items-center min-h-screen bg-zinc-900 text-zinc-200">
     <div class="flex flex-col p-8 items-center rounded">
@@ -112,11 +104,11 @@
             <div class="flex flex-col gap-4">
                 <div class="flex justify-between">
                     <p>Poolt</p>
-                    <p>{stats.for}</p>
+                    <p></p>
                 </div>
                 <div class="flex justify-between">
                     <p>Vastu</p>
-                    <p>{stats.against}</p>
+                    <p></p>
                 </div>
             </div>
         </div>
