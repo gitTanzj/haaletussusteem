@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { invalidateAll } from "$app/navigation";
     import "../app.css"
     import { onMount } from 'svelte';
     // import { choiceQuery } from '$lib/database'
@@ -46,6 +47,7 @@
 
         firstname = '';
         lastname = '';
+        invalidateAll();
 
         setTimeout(() => {
             notification = {
