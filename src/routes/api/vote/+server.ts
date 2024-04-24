@@ -1,9 +1,11 @@
 import { json, error } from '@sveltejs/kit'
 import { createConnection } from '$lib/database';
 
+interface Event {
+    request: Request
+}
 
-
-export async function POST(event) {
+export async function POST(event: Event) {
     const body = await event.request.formData()
     
     console.log([...body]);
@@ -17,31 +19,7 @@ export async function POST(event) {
     console.log("end choice query")
     await pool.end()
 
-    return json({ 'message': 'vote successfully sent'})
-}
-
-export async function GET() {
-    const pool = await createConnection()
-    console.log("try query")
-    const fetchedStats = await pool.query('select otsus from HAALETUS')
-    const stats = {
-        for: 0,
-        against: 0
-    }
-    for(let i = 0; i < fetchedStats[0].length; i++) {
-        if(fetchedStats[0][i].otsus === 'poolt') {
-            stats.for++
-        } else if(fetchedStats[0][i].otsus === 'vastu') {
-            stats.against++
-        }
-    }
-    console.log("end query")
-    await pool.end()
-
-    return new Response(JSON.stringify(stats), {
-        headers: {
-            'Content-Type': 'application/json'
-        }, 
-        status: 200
+    return json({
+        'message': 'vote successfully sent',
     })
 }
